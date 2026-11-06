@@ -6,7 +6,151 @@ function goto(r,target=''){route=r;id=target;location.hash=r+(target?'/'+target:
 function title(t,desc){return `<span class="kicker">HỌC LIỆU SỐ – KHOA GIÁO DỤC THỂ CHẤT</span><h2 class="sectiontitle">${t}</h2><p class="muted">${desc}</p>`}
 function home(){return `<div class="panel hero"><span class="kicker">MÔ HÌNH HỌC THEO LỖI KỸ THUẬT</span><h2>Nhận diện đúng lỗi.<br>Đối chiếu đúng kỹ thuật.<br>Sửa sai có mục tiêu.</h2><p>Học liệu được tổ chức thành chuỗi học tập theo từng lỗi kỹ thuật chân bơi ếch, dựa vào nội dung báo cáo nghiên cứu của ThS. Lê Thị Giang.</p><button class="btn alt" data-go="error">Bắt đầu từ phân tích lỗi L1 →</button></div><div class="steps"><div class="step"><b>01</b><p>Quan sát hình minh họa lỗi, xác định biểu hiện – nguyên nhân – hậu quả.</p></div><div class="step"><b>02</b><p>Đọc và đối chiếu yêu cầu kỹ thuật chuẩn tương ứng.</p></div><div class="step"><b>03</b><p>Chọn bài tập trên cạn, dưới nước để sửa lỗi trọng tâm.</p></div><div class="step"><b>04</b><p>Trả lời câu hỏi, ghi phiếu quan sát và nhận phản hồi.</p></div></div>${title('Bốn lỗi trọng tâm','Chọn lỗi đang cần điều chỉnh để đi theo đúng một đường học tập.') }<div class="grid">${E.map(e=>`<div class="card"><span class="flag">${e.id} · BIỂU HIỆN LỖI</span><h3>${e.title}</h3><img class="errimg" loading="lazy" src="${e.image}" alt="Hình minh họa ${e.id} – ${e.title}; đây là lỗi kỹ thuật, không phải động tác chuẩn"><p class="muted">${e.symptom}</p><button class="btn" data-go="error" data-id="${e.id}">Phân tích lỗi ${e.id} →</button></div>`).join('')}</div><div class="good">Nguồn chuyên môn: báo cáo “Ứng dụng chuyển đổi số trong định hướng xây dựng học liệu lỗi kỹ thuật và bài tập sửa sai động tác chân ếch…” (ThS. Lê Thị Giang, 2026). Đây là nguyên mẫu học liệu, chưa có kết quả đánh giá thực nghiệm.</div>`}
 function errors(){let e=E.find(x=>x.id===id);if(!e)return `${title('Bước 1 · Phân tích lỗi kỹ thuật','Hình ảnh ở mục này là minh họa SAI LỆCH để nhận diện lỗi, không phải kỹ thuật chuẩn.')}<div class="grid">${E.map(x=>`<div class="card"><span class="flag">HÌNH MINH HỌA LỖI · ${x.id}</span><h3>${x.title}</h3><img class="errimg" src="${x.image}" loading="lazy" alt="Hình minh họa lỗi ${x.id}"><p class="muted">${x.symptom}</p><button class="btn" data-go="error" data-id="${x.id}">Phân tích ${x.id} →</button></div>`).join('')}</div>`;return `${title('Bước 1 · '+e.id+' – '+e.title,'Quan sát và phân tích lỗi trước khi chuyển sang học kỹ thuật chuẩn.')}<div class="grid"><div class="panel"><span class="flag">HÌNH ĐỘNG TÁC SAI – DÙNG ĐỂ NHẬN DIỆN</span><img class="errimg" src="${e.image}" alt="Hình lỗi ${e.id}"><p class="small muted">Hình minh họa lỗi ${e.id}, trích từ tư liệu báo cáo của ThS. Lê Thị Giang.</p></div><div class="panel"><div class="warning"><b>BIỂU HIỆN</b><p>${e.symptom}</p></div><h3>Nguyên nhân trọng tâm</h3><p>${e.cause}</p><h3>Hậu quả</h3><p>${e.impact}</p><h3>Yêu cầu cần đạt</h3><div class="good">${e.goal}</div><button class="btn" data-go="tech" data-id="${e.kt}">Tiếp theo: Đối chiếu kỹ thuật chuẩn ${e.kt} →</button></div></div><button class="btn alt" data-go="error">← Danh sách bốn lỗi</button>`}
-function technical(){let t=K.find(x=>x.id===id);if(!t)return `${title('Bước 2 · Kỹ thuật chuẩn','Mô tả kỹ thuật chuẩn bằng các tiêu chí chuyên môn của báo cáo; KHÔNG sử dụng hình lỗi để minh họa động tác đúng.')}<div class="grid">${K.map((x,i)=>`<div class="card"><span class="meta">${x.id} · GIAI ĐOẠN ${i+1}</span><h3>${x.title}</h3><p>${x.note}</p><button class="btn" data-go="tech" data-id="${x.id}">Xem tiêu chí chuẩn →</button></div>`).join('')}</div>`;let e=E.find(x=>x.kt===t.id);return `${title('Bước 2 · '+t.id+' – '+t.title,'Đối chiếu biểu hiện lỗi vừa phân tích với yêu cầu chuyển động đúng.') }<div class="panel"><span class="meta">MÔ TẢ KỸ THUẬT CHUẨN</span><h2>${t.title}</h2><p style="font-size:18px">${t.note}</p><h3>Điểm quan sát cần đạt</h3><ul>${t.check.map(x=>`<li>${x}</li>`).join('')}</ul><div class="good"><b>Phân biệt nguồn minh họa:</b> Chưa có ảnh/video động tác chuẩn riêng đã được thẩm định trong bộ tư liệu. Vì vậy, trang kỹ thuật chuẩn sử dụng mô tả và tiêu chí; tuyệt đối không gắn ảnh lỗi làm ảnh mẫu.</div><h3>Đối chiếu với lỗi vừa phân tích</h3><p><b>${e.id}:</b> ${e.symptom}</p><div class="row"><button class="btn alt" data-go="error" data-id="${e.id}">← Xem lại lỗi ${e.id}</button><button class="btn" data-go="exercise" data-id="${e.id}">Tiếp theo: Bài tập sửa sai ${e.id} →</button></div></div>`}
+const ktcImages ={
+    KTC1: [
+        "assets/images/ktc1-thu-chan-1.jpg",
+        "assets/images/ktc-1-thuchan-2.jpg",
+        "assets/images/ktc1-thuchan-3.jpg",
+        "assets/images/ktc1-thuchan-4.jpg",
+    ],
+    KTC2: [
+        "assets/images/ktc2-xoaychan-1.jpg",
+        "assets/images/ktc2-xoaychan-2.jpg",
+        "assets/images/ktc2-xoaychan-3.jpg",
+        "assets/images/ktc2-xoaychan-4.jpg",
+    ],
+    KTC3: [
+        "assets/images/ktc3-dapchan-1.jpg",
+        "assets/images/ktc3-dapchan-2.jpg",
+        "assets/images/ktc3-dapchan-3.jpg",
+    ],
+    KTC4: [
+        "assets/images/ktc4-luotnuoc-1.jpg",
+    ],
+}
+function technical() {
+  let t = K.find(x => x.id === id);
+
+  if (!t) {
+    return `
+      ${title(
+        'Bước 2 · Kỹ thuật chuẩn',
+        'Đối chiếu các yêu cầu kỹ thuật theo báo cáo nghiên cứu.'
+      )}
+
+      <div class="grid">
+        ${K.map((x, i) => `
+          <div class="card">
+            <span class="meta">
+              ${x.id} · GIAI ĐOẠN ${i + 1}
+            </span>
+            <h3>${x.title}</h3>
+            <p>${x.note}</p>
+            <button class="btn"
+              data-go="tech"
+              data-id="${x.id}">
+              Xem tiêu chí chuẩn →
+            </button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  let e = E.find(x => x.kt === t.id);
+
+  // Lấy danh sách 4 ảnh của bài học
+  let images = ktcImages[t.id] || [];
+
+  return `
+    ${title(
+      'Bước 2 · ' + t.id + ' – ' + t.title,
+      'Đối chiếu biểu hiện lỗi vừa phân tích với yêu cầu chuyển động đúng.'
+    )}
+
+    <div class="panel">
+
+      <span class="meta">
+        MÔ TẢ KỸ THUẬT CHUẨN
+      </span>
+
+      <h2>${t.title}</h2>
+
+      <p style="font-size:18px">
+        ${t.note}
+      </p>
+
+      <!-- THƯ VIỆN 4 ẢNH KỸ THUẬT -->
+
+      <h3>Hình ảnh minh họa kỹ thuật</h3>
+
+      <div class="ktc-gallery">
+        ${images.map((src, index) => `
+          <figure class="ktc-image">
+            <a href="${src}"
+               target="_blank"
+               rel="noopener noreferrer">
+
+              <img
+                src="${src}"
+                alt="${t.title} - Hình ${index + 1}"
+                loading="lazy"
+              >
+
+            </a>
+
+            <figcaption>
+              Hình ${index + 1} – ${t.title}
+            </figcaption>
+          </figure>
+        `).join('')}
+      </div>
+
+      <!-- ĐIỂM QUAN SÁT -->
+
+      <h3>Điểm quan sát cần đạt</h3>
+
+      <ul>
+        ${t.check.map(x => `
+          <li>${x}</li>
+        `).join('')}
+      </ul>
+
+      <div class="good">
+        <b>Lưu ý chuyên môn:</b>
+        Hình ảnh kỹ thuật chuẩn cần được giảng viên
+        thẩm định trước khi sử dụng chính thức.
+        Không sử dụng hình minh họa lỗi sai
+        làm hình kỹ thuật mẫu.
+      </div>
+
+      <!-- ĐỐI CHIẾU LỖI -->
+
+      <h3>Đối chiếu với lỗi vừa phân tích</h3>
+
+      ${e ? `
+        <p>
+          <b>${e.id}:</b> ${e.symptom}
+        </p>
+
+        <div class="row">
+          <button class="btn alt"
+            data-go="error"
+            data-id="${e.id}">
+            ← Xem lại lỗi ${e.id}
+          </button>
+
+          <button class="btn"
+            data-go="exercise"
+            data-id="${e.id}">
+            Tiếp theo: Bài tập sửa sai ${e.id} →
+          </button>
+        </div>
+      ` : ''}
+
+    </div>
+  `;
+}
 function exercise(){let e=E.find(x=>x.id===id);if(!e)return `${title('Bước 3 · Bài tập sửa sai','Tổ chức theo lỗi trọng tâm: trên cạn → dưới nước → phối hợp và phản hồi.') }<div class="grid">${E.map(x=>`<div class="card"><span class="meta">${x.id} → ${x.dry} + ${x.wet}</span><h3>${x.title}</h3><p>${x.goal}</p><button class="btn" data-go="exercise" data-id="${x.id}">Xem bài tập →</button></div>`).join('')}</div>`;let dry=B.find(x=>x.id===e.dry),wet=B.find(x=>x.id===e.wet);return `${title('Bước 3 · Sửa sai '+e.id,'Thực hành từ đơn giản đến phức tạp dưới sự hướng dẫn và quan sát của giảng viên.')}<div class="grid"><div class="panel"><span class="meta">TRÊN CẠN · ${dry.id}</span><h3>${dry.title}</h3><p>${dry.steps}</p></div><div class="panel"><span class="meta">DƯỚI NƯỚC · ${wet.id}</span><h3>${wet.title}</h3><p>${wet.steps}</p></div></div><div class="panel"><h3>Tiêu chí sau sửa sai</h3><div class="good">${e.goal}</div><div class="warning" style="margin:13px 0">Điều chỉnh số lần, cự ly và độ khó theo năng lực người học; đảm bảo an toàn ở bể bơi. Với ${e.id==='L2'?'bài tập xoay bàn chân, không ép cổ chân hoặc gối quá giới hạn vận động tự nhiên.':'mọi bài tập dưới nước, cần có giảng viên quan sát và hướng dẫn.'}</div><button class="btn" data-go="quiz">Tiếp theo: Câu hỏi tự đánh giá →</button><button class="btn alt" data-go="journal">Mở phiếu luyện tập</button></div>`}
 function practiceGallery(){return `<div class="panel"><span class="kicker">HÌNH ẢNH HỖ TRỢ THỰC HÀNH</span><h3>Tham khảo hình thức tập luyện trên cạn và quan sát tư thế</h3><p class="muted">Ảnh biên tập từ tư liệu người dùng cung cấp, sử dụng minh họa phương pháp tập. Không thay thế video chuẩn đã thẩm định.</p><div class="practice-gallery"><figure><img loading="lazy" src="assets/images/bt-tren-can-1.jpg" alt="Bài tập mô phỏng giai đoạn thu chân ở trên cạn"><figcaption>Tập mô phỏng thu chân có kiểm soát</figcaption></figure><figure><img loading="lazy" src="assets/images/bt-tren-can-2.jpg" alt="Mô phỏng tư thế chân bơi ếch trên thảm"><figcaption>Bài tập nằm sấp, nhận biết hướng chân</figcaption></figure><figure><img loading="lazy" src="assets/images/bt-co-chan.jpg" alt="Tập nhận biết tư thế cổ chân ở bên bể bơi"><figcaption>Thả lỏng và nhận biết tư thế cổ chân</figcaption></figure></div></div>`}
 function quiz(){return `${title('Bước 4 · Câu hỏi tương tác','Đọc tình huống bằng chữ, xác định lỗi và chọn hướng sửa sai. Không chiếu hình lỗi sai thay cho hình kỹ thuật chuẩn.') }<div class="panel"><div class="good">Các câu hỏi này dựa trên biểu hiện, nguyên nhân, bài tập trong báo cáo. Chỉ những câu hỏi có yêu cầu “quan sát hình nhận diện lỗi” mới nên sử dụng ảnh lỗi có nhãn rõ ràng; bộ câu hỏi hiện tại trình bày tình huống bằng chữ để tránh nhầm lẫn.</div><form id="quizForm">${Q.map((q,i)=>`<section class="quizq"><h3>Câu ${i+1}. ${safe(q.q)}</h3>${q.a.map((a,j)=>`<label class="choice"><input type="radio" name="q${i}" value="${j}" required> ${safe(a)}</label>`).join('')}</section>`).join('')}<button class="btn" type="submit">Chấm điểm và giải thích</button><button class="btn alt" type="button" id="reset">Làm lại</button></form><div id="quizResult" aria-live="polite"></div></div>`}

@@ -3,3 +3,52 @@
 
 /* Phiên bản GitHub Pages: các tệp giao diện được tách riêng để dễ bảo trì */
 html{scroll-behavior:smooth}body{background:#f4f8fb}header{background:linear-gradient(135deg,#07283f 0%,#0b546b 90%);border-bottom:4px solid #55ded1}header h1{letter-spacing:-.025em}header small{color:#7df5e7}.panel,.card{box-shadow:0 10px 28px #153f5310}.card:hover{border-color:#8ecfda;box-shadow:0 15px 32px #153f5317}nav button.active{box-shadow:inset 3px 0 0 #12acaa}.btn:hover{filter:brightness(1.07)}.practice-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}.practice-gallery figure{margin:0;background:#f1f7f9;border:1px solid #deebee;border-radius:12px;overflow:hidden}.practice-gallery img{width:100%;height:250px;object-fit:cover;object-position:center 45%;display:block}.practice-gallery figcaption{padding:11px;font-size:13px;font-weight:650;color:#244d60}.qr-area{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:10px 0}.qr-area canvas{max-width:100%;height:auto;background:white;border:1px solid #dde6ef;padding:7px;border-radius:9px}.warn-meta{font-size:12px;color:#58758c}#quizResult{scroll-margin-top:20px}@media(max-width:700px){.practice-gallery{grid-template-columns:1fr}.practice-gallery img{height:250px}nav button.active{box-shadow:inset 0 -3px 0 #12acaa}}
+/* THƯ VIỆN ẢNH KỸ THUẬT */
+
+.ktc-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 25px 0;
+}
+
+.ktc-image {
+  margin: 0;
+  padding: 12px;
+  background: #f4fafc;
+  border: 1px solid #d8e8ee;
+  border-radius: 14px;
+  text-align: center;
+  min-width: 0;
+}
+
+.ktc-image img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: contain;
+  border-radius: 10px;
+  transition: transform 0.25s ease;
+}
+
+.ktc-image img:hover {
+  transform: scale(1.02);
+}
+
+.ktc-image figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #536474;
+}
+
+@media (max-width: 600px) {
+  .ktc-gallery {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ktc-image img {
+    height: auto;
+    max-height: 420px;
+  }
+}
